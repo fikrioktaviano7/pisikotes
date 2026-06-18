@@ -2,11 +2,11 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>Psychology Master Pro</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 
@@ -17,14 +17,26 @@ box-sizing:border-box;
 font-family:'Poppins',sans-serif;
 }
 
+:root{
+--cyan:#00e5ff;
+--green:#00ff95;
+--purple:#8b5cf6;
+--bg:#050816;
+--glass:rgba(255,255,255,.06);
+}
+
 body{
-background:#070b17;
-color:white;
+background:
+radial-gradient(circle at 15% 20%,rgba(0,229,255,.15),transparent 25%),
+radial-gradient(circle at 80% 10%,rgba(0,255,149,.12),transparent 25%),
+radial-gradient(circle at 50% 90%,rgba(139,92,246,.15),transparent 35%),
+#050816;
+color:#fff;
 overflow-x:hidden;
 min-height:100vh;
 }
 
-#particles{
+canvas{
 position:fixed;
 top:0;
 left:0;
@@ -34,65 +46,120 @@ z-index:-1;
 }
 
 .glass{
-background:rgba(255,255,255,.08);
+background:rgba(255,255,255,.05);
 backdrop-filter:blur(25px);
-border:1px solid rgba(255,255,255,.1);
-box-shadow:0 8px 32px rgba(0,0,0,.3);
+border:1px solid rgba(255,255,255,.08);
+box-shadow:
+0 10px 50px rgba(0,0,0,.4),
+inset 0 1px 1px rgba(255,255,255,.05);
 }
 
 .hero{
 height:100vh;
 display:flex;
-justify-content:center;
 align-items:center;
+justify-content:center;
 padding:20px;
 }
 
 .hero-box{
 width:100%;
-max-width:900px;
-padding:50px;
-border-radius:30px;
+max-width:1000px;
+padding:60px;
+border-radius:35px;
 text-align:center;
+position:relative;
+overflow:hidden;
+}
+
+.hero-box::before{
+content:'';
+position:absolute;
+width:400px;
+height:400px;
+background:linear-gradient(
+90deg,
+var(--cyan),
+var(--green)
+);
+filter:blur(120px);
+opacity:.25;
+top:-180px;
+left:-180px;
 }
 
 .logo{
-font-size:70px;
+font-size:90px;
 margin-bottom:20px;
 }
 
 .hero h1{
-font-size:55px;
-margin-bottom:20px;
-background:linear-gradient(90deg,#00e5ff,#00ff95);
+font-size:60px;
+font-weight:800;
+background:
+linear-gradient(
+90deg,
+var(--cyan),
+var(--green)
+);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
+margin-bottom:20px;
 }
 
 .hero p{
 opacity:.8;
 line-height:1.8;
-margin-bottom:35px;
+font-size:18px;
+margin-bottom:40px;
+}
+
+.stats{
+display:flex;
+justify-content:center;
+gap:20px;
+margin-bottom:40px;
+flex-wrap:wrap;
+}
+
+.stat{
+padding:20px;
+border-radius:20px;
+background:rgba(255,255,255,.04);
+min-width:140px;
+}
+
+.stat h2{
+font-size:35px;
+color:var(--green);
 }
 
 .btn{
-padding:15px 35px;
 border:none;
-border-radius:15px;
-background:linear-gradient(90deg,#00e5ff,#00ff95);
+padding:18px 45px;
 font-size:18px;
-font-weight:600;
+font-weight:700;
+border-radius:18px;
 cursor:pointer;
+background:
+linear-gradient(
+135deg,
+var(--cyan),
+var(--green)
+);
 transition:.3s;
 }
 
 .btn:hover{
-transform:translateY(-4px);
+transform:translateY(-5px);
+box-shadow:
+0 0 25px var(--cyan),
+0 0 45px var(--green);
 }
 
-.quiz-container{
+.quiz-page{
 display:none;
-max-width:1000px;
+max-width:1200px;
 margin:auto;
 padding:30px;
 }
@@ -102,60 +169,104 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 margin-bottom:20px;
+gap:20px;
+flex-wrap:wrap;
+}
+
+.counter{
+font-size:18px;
+font-weight:600;
+}
+
+.timer{
+font-size:22px;
+font-weight:700;
+color:var(--green);
 }
 
 .progress{
-height:15px;
-background:#1b2135;
-border-radius:20px;
+height:18px;
+background:#111827;
+border-radius:50px;
 overflow:hidden;
-margin-bottom:30px;
+margin-bottom:25px;
 }
 
 .progress-fill{
 height:100%;
 width:0%;
-background:linear-gradient(90deg,#00e5ff,#00ff95);
+background:
+linear-gradient(
+90deg,
+var(--cyan),
+var(--green),
+var(--purple)
+);
 transition:.5s;
 }
 
 .question-card{
-padding:30px;
-border-radius:25px;
+padding:40px;
+border-radius:30px;
+position:relative;
+overflow:hidden;
+}
+
+.question-card::after{
+content:'';
+position:absolute;
+width:500px;
+height:500px;
+background:var(--cyan);
+opacity:.05;
+filter:blur(150px);
+right:-250px;
+top:-250px;
 }
 
 .question-type{
 display:inline-block;
-padding:8px 15px;
-background:#00e5ff20;
+padding:10px 18px;
 border-radius:20px;
+background:#00e5ff20;
 margin-bottom:20px;
+font-weight:600;
 }
 
 .question{
-font-size:25px;
+font-size:28px;
+line-height:1.7;
 margin-bottom:30px;
-line-height:1.6;
+font-weight:600;
+}
+
+.answers{
+display:grid;
+gap:15px;
 }
 
 .option{
 padding:18px;
-margin-bottom:15px;
-border-radius:15px;
+border-radius:18px;
 cursor:pointer;
-background:#ffffff08;
+background:rgba(255,255,255,.04);
+border:1px solid transparent;
 transition:.3s;
 }
 
 .option:hover{
-background:#00e5ff25;
-transform:translateX(10px);
-}
+transform:
+translateX(8px)
+scale(1.02);
 
-.timer{
-font-size:22px;
-font-weight:bold;
-color:#00ff95;
+background:
+linear-gradient(
+90deg,
+rgba(0,229,255,.12),
+rgba(0,255,149,.12)
+);
+
+border-color:var(--cyan);
 }
 
 .result-page{
@@ -166,41 +277,67 @@ padding:30px;
 }
 
 .result-card{
-padding:40px;
-border-radius:30px;
+padding:50px;
+border-radius:35px;
 text-align:center;
 }
 
-.score-box{
+.result-card h1{
+font-size:50px;
+margin-bottom:15px;
+}
+
+.result-grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
-margin-top:30px;
+grid-template-columns:
+repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
+margin-top:40px;
 }
 
-.score{
+.result-item{
 padding:30px;
-border-radius:20px;
-background:#ffffff08;
+border-radius:25px;
+background:rgba(255,255,255,.04);
 }
 
-.score h3{
-font-size:35px;
-margin-top:10px;
+.result-item h2{
+font-size:40px;
+margin-top:15px;
+color:var(--green);
+}
+
+.fade{
+animation:fade .5s ease;
+}
+
+@keyframes fade{
+from{
+opacity:0;
+transform:translateY(20px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
 }
 
 @media(max-width:768px){
 
 .hero h1{
-font-size:35px;
+font-size:38px;
 }
 
 .logo{
-font-size:50px;
+font-size:60px;
 }
 
 .question{
-font-size:20px;
+font-size:22px;
+}
+
+.hero-box{
+padding:35px;
 }
 
 }
@@ -220,9 +357,29 @@ font-size:20px;
 <h1>Psychology Master Pro</h1>
 
 <p>
-Tes psikologi profesional dengan metode MBTI,
-DISC dan IQ Assessment.
+Tes psikologi profesional berbasis MBTI,
+DISC dan IQ Assessment dengan
+150 soal interaktif dan analisis otomatis.
 </p>
+
+<div class="stats">
+
+<div class="stat">
+<h2>150</h2>
+Soal
+</div>
+
+<div class="stat">
+<h2>45</h2>
+Menit
+</div>
+
+<div class="stat">
+<h2>3</h2>
+Metode
+</div>
+
+</div>
 
 <button class="btn" onclick="startTest()">
 Mulai Tes
@@ -232,11 +389,11 @@ Mulai Tes
 
 </section>
 
-<section class="quiz-container" id="quizPage">
+<section class="quiz-page" id="quizPage">
 
 <div class="topbar">
 
-<div id="counter">
+<div class="counter" id="counter">
 Soal 1 / 150
 </div>
 
@@ -250,7 +407,7 @@ Soal 1 / 150
 <div class="progress-fill" id="progress"></div>
 </div>
 
-<div class="question-card glass">
+<div class="question-card glass fade">
 
 <div class="question-type" id="type">
 MBTI
@@ -260,7 +417,9 @@ MBTI
 ...
 </div>
 
-<div id="answers"></div>
+<div class="answers" id="answers">
+
+</div>
 
 </div>
 
@@ -273,24 +432,24 @@ MBTI
 <h1>Hasil Analisis</h1>
 
 <p>
-Analisis psikotes profesional
+Analisis Psikologi Profesional
 </p>
 
-<div class="score-box">
+<div class="result-grid">
 
-<div class="score">
+<div class="result-item">
 MBTI
-<h3 id="mbtiResult">-</h3>
+<h2 id="mbtiResult">-</h2>
 </div>
 
-<div class="score">
+<div class="result-item">
 DISC
-<h3 id="discResult">-</h3>
+<h2 id="discResult">-</h2>
 </div>
 
-<div class="score">
+<div class="result-item">
 IQ
-<h3 id="iqResult">-</h3>
+<h2 id="iqResult">-</h2>
 </div>
 
 </div>
@@ -301,63 +460,99 @@ IQ
 
 <script>
 
-/* PARTICLE BACKGROUND */
+/* =====================================
+   PARTICLE ENGINE PREMIUM
+===================================== */
 
-const canvas=document.getElementById("particles");
-const ctx=canvas.getContext("2d");
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
 
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
+function resizeCanvas(){
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
 
-let particles=[];
+resizeCanvas();
+window.addEventListener("resize",resizeCanvas);
+
+const particles=[];
 
 for(let i=0;i<120;i++){
-particles.push({
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-r:Math.random()*3,
-dx:(Math.random()-0.5),
-dy:(Math.random()-0.5)
-});
-}
 
-function animate(){
-
-ctx.clearRect(0,0,canvas.width,canvas.height);
-
-particles.forEach(p=>{
-
-ctx.beginPath();
-ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-ctx.fillStyle="#00e5ff";
-ctx.fill();
-
-p.x+=p.dx;
-p.y+=p.dy;
-
-if(p.x<0||p.x>canvas.width)p.dx*=-1;
-if(p.y<0||p.y>canvas.height)p.dy*=-1;
-
-});
-
-requestAnimationFrame(animate);
+    particles.push({
+        x:Math.random()*canvas.width,
+        y:Math.random()*canvas.height,
+        r:Math.random()*3+1,
+        dx:(Math.random()-0.5)*0.7,
+        dy:(Math.random()-0.5)*0.7
+    });
 
 }
 
-animate();
+function animateParticles(){
 
-/* SOAL */
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
 
-const questions = [
+    particles.forEach(p=>{
 
+        ctx.beginPath();
+        ctx.arc(
+            p.x,
+            p.y,
+            p.r,
+            0,
+            Math.PI*2
+        );
+
+        ctx.fillStyle=
+        "rgba(0,229,255,.8)";
+
+        ctx.fill();
+
+        p.x+=p.dx;
+        p.y+=p.dy;
+
+        if(p.x<0 || p.x>canvas.width)
+        p.dx*=-1;
+
+        if(p.y<0 || p.y>canvas.height)
+        p.dy*=-1;
+
+    });
+
+    requestAnimationFrame(
+        animateParticles
+    );
+
+}
+
+animateParticles();
+
+
+/* =====================================
+   DATA
+===================================== */
+
+let currentQuestion = 0;
+
+let answers = [];
+
+let mbtiScore = 0;
+let discScore = 0;
+let iqScore = 0;
+
+/*
+NANTI DI TAHAP 3
+
+const questions=[ 
 {
 type:"MBTI",
-question:"Saya lebih bersemangat setelah menghabiskan waktu bersama banyak orang.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"MBTI",
-question:"Saya lebih suka berdiskusi daripada bekerja sendirian.",
+question:"Saya lebih bersemangat setelah berinteraksi dengan banyak orang.",
 options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
 },
 {
@@ -367,92 +562,248 @@ options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
 },
 {
 type:"MBTI",
-question:"Saya menikmati menjadi pusat perhatian dalam suatu kelompok.",
+question:"Saya menikmati menjadi pusat perhatian.",
 options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
 },
 {
 type:"MBTI",
-question:"Saya lebih suka aktivitas yang melibatkan banyak interaksi sosial.",
+question:"Saya lebih suka bekerja dalam kelompok dibanding sendiri.",
 options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
 },
 {
 type:"MBTI",
-question:"Saya lebih percaya pada fakta daripada intuisi.",
+question:"Saya merasa nyaman berbicara di depan umum.",
 options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
 },
 {
 type:"MBTI",
-question:"Saya memperhatikan detail kecil yang sering diabaikan orang lain.",
+question:"Saya lebih suka aktivitas sosial dibanding menyendiri.",
 options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
 },
 {
 type:"MBTI",
-question:"Saya lebih fokus pada kenyataan dibanding kemungkinan masa depan.",
+question:"Saya sering mencari teman baru.",
 options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
 },
 {
 type:"MBTI",
-question:"Saya lebih suka instruksi yang jelas daripada konsep abstrak.",
+question:"Saya merasa energik setelah menghadiri acara ramai.",
 options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
 },
 {
 type:"MBTI",
-question:"Saya cenderung mengandalkan pengalaman dibanding teori.",
+question:"Saya suka berdiskusi secara aktif.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"MBTI",
+question:"Saya lebih suka bekerja di lingkungan yang ramai.",
 options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
 },
 
 {
 type:"MBTI",
-question:"Saya lebih mengutamakan logika daripada perasaan saat mengambil keputusan.",
+question:"Saya lebih percaya fakta daripada intuisi.",
 options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
 },
 {
 type:"MBTI",
-question:"Saya dapat memberikan kritik tanpa merasa tidak nyaman.",
+question:"Saya memperhatikan detail kecil.",
 options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
 },
 {
 type:"MBTI",
-question:"Saya lebih memilih keputusan objektif dibanding emosional.",
+question:"Saya fokus pada kondisi saat ini daripada masa depan.",
 options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
 },
 {
 type:"MBTI",
-question:"Saya sering mempertimbangkan efisiensi dibanding perasaan orang lain.",
+question:"Saya menyukai instruksi yang jelas.",
 options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
 },
 {
 type:"MBTI",
-question:"Saya lebih nyaman dengan analisis daripada empati.",
+question:"Saya mengandalkan pengalaman nyata.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"MBTI",
+question:"Saya lebih menyukai fakta dibanding teori.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"MBTI",
+question:"Saya senang bekerja dengan data konkret.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"MBTI",
+question:"Saya lebih memperhatikan realita dibanding kemungkinan.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"MBTI",
+question:"Saya menyukai langkah kerja yang terstruktur.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"MBTI",
+question:"Saya lebih suka hal yang praktis.",
 options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
 },
 
 {
 type:"MBTI",
-question:"Saya suka membuat jadwal yang teratur.",
+question:"Saya lebih mengutamakan logika daripada perasaan.",
 options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
 },
 {
 type:"MBTI",
-question:"Saya merasa tidak nyaman jika rencana berubah mendadak.",
+question:"Saya mudah memberikan kritik objektif.",
 options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
 },
 {
 type:"MBTI",
-question:"Saya lebih suka menyelesaikan tugas sebelum batas waktu.",
+question:"Saya lebih memilih keputusan rasional.",
 options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
 },
 {
 type:"MBTI",
-question:"Saya lebih suka lingkungan yang terorganisir.",
+question:"Saya mementingkan efisiensi kerja.",
 options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
 },
 {
 type:"MBTI",
-question:"Saya membuat daftar tugas untuk aktivitas sehari-hari.",
+question:"Saya lebih nyaman menganalisis daripada berempati.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"MBTI",
+question:"Saya menilai sesuatu berdasarkan logika.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"MBTI",
+question:"Saya tidak mudah terbawa emosi saat mengambil keputusan.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"MBTI",
+question:"Saya lebih suka fakta daripada opini emosional.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"MBTI",
+question:"Saya suka menganalisis masalah secara mendalam.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"MBTI",
+question:"Saya mengutamakan objektivitas.",
 options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
 },
 
+{
+type:"MBTI",
+question:"Saya suka membuat jadwal teratur.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"MBTI",
+question:"Saya tidak nyaman jika rencana berubah mendadak.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"MBTI",
+question:"Saya menyelesaikan tugas sebelum deadline.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"MBTI",
+question:"Saya menyukai lingkungan yang terorganisir.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"MBTI",
+question:"Saya membuat daftar pekerjaan harian.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"MBTI",
+question:"Saya suka merencanakan aktivitas jauh hari.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"MBTI",
+question:"Saya lebih suka kepastian daripada spontanitas.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"MBTI",
+question:"Saya merasa nyaman dengan aturan yang jelas.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"MBTI",
+question:"Saya lebih suka pekerjaan yang terjadwal.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"MBTI",
+question:"Saya jarang menunda pekerjaan.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+
+{
+type:"MBTI",
+question:"Saya lebih suka menghabiskan waktu sendiri untuk memulihkan energi.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"MBTI",
+question:"Saya sering memikirkan kemungkinan masa depan.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"MBTI",
+question:"Saya mempercayai intuisi dalam mengambil keputusan.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"MBTI",
+question:"Saya tertarik pada ide baru.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"MBTI",
+question:"Saya menikmati konsep abstrak.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"MBTI",
+question:"Saya mempertimbangkan perasaan orang lain.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"MBTI",
+question:"Saya mudah memahami emosi orang lain.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"MBTI",
+question:"Saya mengutamakan keharmonisan hubungan.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"MBTI",
+question:"Saya lebih suka membantu daripada mengkritik.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"MBTI",
+question:"Saya sering membuat keputusan berdasarkan nilai pribadi.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
 {
 type:"DISC",
 question:"Saya senang mengambil kendali dalam sebuah tim.",
@@ -460,12 +811,12 @@ options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
 },
 {
 type:"DISC",
-question:"Saya berani mengambil keputusan penting dengan cepat.",
+question:"Saya berani mengambil keputusan dengan cepat.",
 options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
 },
 {
 type:"DISC",
-question:"Saya tidak takut menghadapi konflik jika diperlukan.",
+question:"Saya tidak takut menghadapi konflik yang diperlukan.",
 options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
 },
 {
@@ -476,6 +827,31 @@ options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
 {
 type:"DISC",
 question:"Saya sering menjadi pemimpin dalam kelompok.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"DISC",
+question:"Saya berani menyampaikan pendapat yang berbeda.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"DISC",
+question:"Saya suka mencapai target yang tinggi.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"DISC",
+question:"Saya cepat bertindak saat melihat peluang.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"DISC",
+question:"Saya nyaman berada di posisi kepemimpinan.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"DISC",
+question:"Saya tidak ragu mengambil tanggung jawab besar.",
 options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
 },
 
@@ -501,7 +877,32 @@ options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
 },
 {
 type:"DISC",
-question:"Saya senang bekerja dalam suasana yang menyenangkan.",
+question:"Saya suka bekerja dalam suasana menyenangkan.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"DISC",
+question:"Saya senang tampil di depan banyak orang.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"DISC",
+question:"Saya mudah mendapatkan teman baru.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"DISC",
+question:"Saya menikmati pekerjaan yang banyak komunikasi.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"DISC",
+question:"Saya sering menjadi pusat perhatian secara alami.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"DISC",
+question:"Saya suka memotivasi orang lain.",
 options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
 },
 
@@ -512,12 +913,12 @@ options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
 },
 {
 type:"DISC",
-question:"Saya setia terhadap komitmen yang telah dibuat.",
+question:"Saya setia terhadap komitmen yang dibuat.",
 options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
 },
 {
 type:"DISC",
-question:"Saya lebih suka kestabilan dibanding perubahan besar.",
+question:"Saya lebih suka kestabilan dibanding perubahan drastis.",
 options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
 },
 {
@@ -528,6 +929,31 @@ options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
 {
 type:"DISC",
 question:"Saya cenderung menghindari konflik.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"DISC",
+question:"Saya tetap tenang saat menghadapi tekanan.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"DISC",
+question:"Saya konsisten dalam menyelesaikan pekerjaan.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"DISC",
+question:"Saya menghargai kerja sama tim.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"DISC",
+question:"Saya dapat mendengarkan dengan sabar.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"DISC",
+question:"Saya menjaga hubungan baik dengan semua orang.",
 options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
 },
 
@@ -556,230 +982,9 @@ type:"DISC",
 question:"Saya menyukai standar kerja yang tinggi.",
 options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
 },
-
-{
-type:"IQ",
-question:"2, 4, 8, 16, ?",
-options:["18","24","32","64"]
-},
-{
-type:"IQ",
-question:"5, 10, 15, 20, ?",
-options:["22","25","30","35"]
-},
-{
-type:"IQ",
-question:"Jika semua A adalah B dan semua B adalah C, maka semua A adalah C.",
-options:["Benar","Salah","Tidak Dapat Dipastikan","Sebagian"]
-},
-{
-type:"IQ",
-question:"7 + 8 × 2 = ?",
-options:["30","23","22","15"]
-},
-{
-type:"IQ",
-question:"Manakah yang berbeda?",
-options:["Apel","Mangga","Jeruk","Meja"]
-},
-{
-type:"IQ",
-question:"36 ÷ 6 + 4 = ?",
-options:["8","10","12","14"]
-},
-{
-type:"IQ",
-question:"1, 3, 6, 10, 15, ?",
-options:["18","20","21","25"]
-},
-{
-type:"IQ",
-question:"Jika hari ini Senin, 10 hari lagi adalah?",
-options:["Rabu","Kamis","Jumat","Sabtu"]
-},
-{
-type:"IQ",
-question:"9, 18, 36, 72, ?",
-options:["108","126","144","148"]
-},
-{
-type:"IQ",
-question:"Ayah dari ayah saya adalah?",
-options:["Paman","Kakek","Saudara","Anak"]
-},
-{
-type:"IQ",
-question:"25% dari 200 adalah?",
-options:["25","40","50","75"]
-}
-  {
-type:"MBTI",
-question:"Saya lebih suka menghabiskan waktu sendiri untuk memulihkan energi.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"MBTI",
-question:"Saya sering memikirkan kemungkinan masa depan daripada kondisi saat ini.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"MBTI",
-question:"Saya mempercayai intuisi saya saat mengambil keputusan.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"MBTI",
-question:"Saya tertarik pada ide-ide baru yang belum pernah dicoba.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"MBTI",
-question:"Saya menikmati diskusi mengenai konsep abstrak.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"MBTI",
-question:"Saya lebih mempertimbangkan perasaan orang lain saat mengambil keputusan.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"MBTI",
-question:"Saya mudah merasakan emosi orang lain.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"MBTI",
-question:"Saya mengutamakan keharmonisan dalam hubungan.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"MBTI",
-question:"Saya lebih suka membantu daripada mengkritik.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"MBTI",
-question:"Saya sering membuat keputusan berdasarkan nilai pribadi.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-
-{
-type:"MBTI",
-question:"Saya lebih suka fleksibilitas daripada jadwal yang ketat.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"MBTI",
-question:"Saya sering mengubah rencana secara spontan.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"MBTI",
-question:"Saya menikmati kebebasan dalam bekerja.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"MBTI",
-question:"Saya lebih suka mengeksplorasi pilihan daripada segera memutuskan.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"MBTI",
-question:"Saya merasa nyaman dengan situasi yang tidak pasti.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-
-{
-type:"DISC",
-question:"Saya berani menyampaikan pendapat meskipun berbeda dengan mayoritas.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"DISC",
-question:"Saya senang mencapai target yang menantang.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"DISC",
-question:"Saya merasa nyaman mengambil risiko yang terukur.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"DISC",
-question:"Saya lebih suka memimpin daripada dipimpin.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"DISC",
-question:"Saya cepat bertindak ketika melihat peluang.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-
-{
-type:"DISC",
-question:"Saya mudah membuat suasana menjadi lebih hidup.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"DISC",
-question:"Saya senang tampil di depan banyak orang.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"DISC",
-question:"Saya mudah mempengaruhi orang lain secara positif.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"DISC",
-question:"Saya menikmati pekerjaan yang melibatkan komunikasi.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"DISC",
-question:"Saya mudah mendapatkan teman baru.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-
-{
-type:"DISC",
-question:"Saya tetap tenang saat menghadapi tekanan.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"DISC",
-question:"Saya konsisten dalam menyelesaikan pekerjaan.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"DISC",
-question:"Saya menghargai kerja sama tim.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"DISC",
-question:"Saya lebih suka suasana kerja yang stabil.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"DISC",
-question:"Saya dapat mendengarkan orang lain dengan sabar.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-
 {
 type:"DISC",
 question:"Saya teliti dalam memeriksa dokumen.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"DISC",
-question:"Saya suka membuat pekerjaan sesuai standar.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"DISC",
-question:"Saya memperhatikan kualitas hasil kerja.",
 options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
 },
 {
@@ -789,284 +994,12 @@ options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
 },
 {
 type:"DISC",
-question:"Saya selalu berusaha meningkatkan kualitas pekerjaan.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-
-{
-type:"IQ",
-question:"3, 6, 12, 24, ?",
-options:["36","42","48","54"]
-},
-{
-type:"IQ",
-question:"100 - 25 ÷ 5 = ?",
-options:["15","75","95","100"]
-},
-{
-type:"IQ",
-question:"Buku : Membaca = Musik : ?",
-options:["Melihat","Mendengar","Menulis","Menggambar"]
-},
-{
-type:"IQ",
-question:"4, 9, 16, 25, ?",
-options:["30","35","36","49"]
-},
-{
-type:"IQ",
-question:"Jika 5 pekerja menyelesaikan pekerjaan dalam 10 hari, maka 10 pekerja memerlukan?",
-options:["2 Hari","5 Hari","10 Hari","20 Hari"]
-},
-{
-type:"IQ",
-question:"Semua burung memiliki sayap. Elang adalah burung. Maka elang memiliki?",
-options:["Kaki","Paruh","Sayap","Bulu"]
-},
-{
-type:"IQ",
-question:"15 + 25 × 2 = ?",
-options:["65","80","50","40"]
-},
-{
-type:"IQ",
-question:"64, 32, 16, 8, ?",
-options:["6","4","2","1"]
-},
-{
-type:"IQ",
-question:"Jika kemarin hari Minggu, maka besok adalah?",
-options:["Senin","Selasa","Rabu","Kamis"]
-},
-{
-type:"IQ",
-question:"1, 4, 9, 16, 25, ?",
-options:["30","35","36","49"]
-},
-{
-type:"IQ",
-question:"Ayam : Telur = Pohon : ?",
-options:["Daun","Akar","Buah","Batang"]
-},
-{
-type:"IQ",
-question:"50% dari 80 adalah?",
-options:["20","30","40","50"]
-},
-{
-type:"IQ",
-question:"8 × 7 - 12 = ?",
-options:["44","46","48","50"]
-},
-{
-type:"IQ",
-question:"Manakah yang bukan kendaraan?",
-options:["Mobil","Motor","Pesawat","Meja"]
-},
-{
-type:"IQ",
-question:"27, 9, 3, 1, ?",
-options:["0","1/3","2","3"]
-},
-{
-type:"IQ",
-question:"Jika harga 1 pensil Rp2.000, maka 5 pensil berharga?",
-options:["Rp8.000","Rp10.000","Rp12.000","Rp15.000"]
-},
-{
-type:"IQ",
-question:"Pukul 15.30 ditambah 2 jam adalah?",
-options:["16.30","17.30","18.30","19.30"]
-},
-{
-type:"IQ",
-question:"Segitiga memiliki berapa sisi?",
-options:["2","3","4","5"]
-},
-{
-type:"IQ",
-question:"81 ÷ 9 = ?",
-options:["7","8","9","10"]
-},
-{
-type:"IQ",
-question:"Jika semua mawar adalah bunga, maka mawar termasuk?",
-options:["Daun","Buah","Bunga","Akar"]
-}
-  {
-type:"MBTI",
-question:"Saya lebih suka bekerja dengan ide daripada hal-hal yang bersifat praktis.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"MBTI",
-question:"Saya sering memikirkan makna di balik suatu kejadian.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"MBTI",
-question:"Saya menikmati membayangkan kemungkinan yang belum terjadi.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"MBTI",
-question:"Saya cenderung melihat gambaran besar daripada detail kecil.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"MBTI",
-question:"Saya lebih tertarik pada konsep daripada fakta nyata.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-
-{
-type:"MBTI",
-question:"Saya lebih memilih keputusan yang adil daripada yang menyenangkan semua orang.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"MBTI",
-question:"Saya tidak mudah terpengaruh oleh emosi orang lain.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"MBTI",
-question:"Saya lebih fokus pada logika daripada perasaan.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"MBTI",
-question:"Saya senang menganalisis masalah secara objektif.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"MBTI",
-question:"Saya lebih suka kebenaran daripada menjaga perasaan orang.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-
-{
-type:"MBTI",
-question:"Saya merasa nyaman dengan jadwal yang fleksibel.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"MBTI",
-question:"Saya sering menunda keputusan sampai benar-benar diperlukan.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"MBTI",
-question:"Saya lebih suka bekerja tanpa aturan yang terlalu ketat.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"MBTI",
-question:"Saya menikmati perubahan dan variasi dalam pekerjaan.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"MBTI",
-question:"Saya merasa nyaman dengan ketidakpastian.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-
-{
-type:"DISC",
-question:"Saya suka mengambil keputusan cepat dalam situasi sulit.",
+question:"Saya selalu memastikan kualitas hasil kerja.",
 options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
 },
 {
 type:"DISC",
-question:"Saya tidak takut mengambil tanggung jawab besar.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"DISC",
-question:"Saya suka tantangan yang membutuhkan keberanian.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"DISC",
-question:"Saya sering menjadi orang yang menentukan arah tim.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"DISC",
-question:"Saya merasa nyaman berada di posisi kepemimpinan.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-
-{
-type:"DISC",
-question:"Saya senang berinteraksi dengan banyak orang baru.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"DISC",
-question:"Saya mudah mempengaruhi suasana dalam kelompok.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"DISC",
-question:"Saya sering menjadi pusat perhatian secara alami.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"DISC",
-question:"Saya suka berbicara dan berkomunikasi.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"DISC",
-question:"Saya menikmati lingkungan sosial yang aktif.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-
-{
-type:"DISC",
-question:"Saya bekerja dengan sabar meskipun dalam tekanan.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"DISC",
-question:"Saya menjaga hubungan baik dengan semua orang.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"DISC",
-question:"Saya tidak suka konflik dan berusaha menghindarinya.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"DISC",
-question:"Saya bisa diandalkan dalam pekerjaan rutin.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"DISC",
-question:"Saya konsisten dalam menjaga komitmen.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-
-{
-type:"DISC",
-question:"Saya sangat memperhatikan detail kecil dalam pekerjaan.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"DISC",
-question:"Saya selalu memastikan pekerjaan dilakukan dengan benar.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"DISC",
-question:"Saya mengikuti prosedur dengan disiplin.",
-options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
-},
-{
-type:"DISC",
-question:"Saya suka pekerjaan yang membutuhkan ketelitian tinggi.",
+question:"Saya mengikuti aturan dengan disiplin.",
 options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
 },
 {
@@ -1076,171 +1009,666 @@ options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
 },
 
 {
+type:"DISC",
+question:"Saya cepat beradaptasi dengan lingkungan baru.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"DISC",
+question:"Saya suka tantangan baru dalam pekerjaan.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"DISC",
+question:"Saya mudah dipercaya oleh orang lain.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"DISC",
+question:"Saya suka membantu menyelesaikan masalah tim.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"DISC",
+question:"Saya berusaha memberikan hasil terbaik.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"DISC",
+question:"Saya menjaga konsistensi dalam pekerjaan.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"DISC",
+question:"Saya suka belajar keterampilan baru.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"DISC",
+question:"Saya mudah memahami kebutuhan orang lain.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"DISC",
+question:"Saya suka bekerja dengan target yang jelas.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"DISC",
+question:"Saya bangga ketika pekerjaan selesai dengan sempurna.",
+options:["Sangat Setuju","Setuju","Tidak Setuju","Sangat Tidak Setuju"]
+},
+{
+type:"IQ",
+question:"2, 4, 8, 16, ?",
+options:["18","24","32","64"],
+correct:2
+},
+{
+type:"IQ",
+question:"5, 10, 15, 20, ?",
+options:["22","25","30","35"],
+correct:1
+},
+{
+type:"IQ",
+question:"7 + 8 × 2 = ?",
+options:["30","23","22","15"],
+correct:1
+},
+{
+type:"IQ",
+question:"36 ÷ 6 + 4 = ?",
+options:["8","10","12","14"],
+correct:1
+},
+{
+type:"IQ",
+question:"1, 3, 6, 10, 15, ?",
+options:["18","20","21","25"],
+correct:2
+},
+{
+type:"IQ",
+question:"9, 18, 36, 72, ?",
+options:["108","126","144","148"],
+correct:2
+},
+{
+type:"IQ",
+question:"25% dari 200 adalah?",
+options:["25","40","50","75"],
+correct:2
+},
+{
+type:"IQ",
+question:"3, 6, 12, 24, ?",
+options:["36","42","48","54"],
+correct:2
+},
+{
+type:"IQ",
+question:"100 - 25 ÷ 5 = ?",
+options:["15","75","95","100"],
+correct:2
+},
+{
+type:"IQ",
+question:"4, 9, 16, 25, ?",
+options:["30","35","36","49"],
+correct:2
+},
+
+{
+type:"IQ",
+question:"15 + 25 × 2 = ?",
+options:["65","80","50","40"],
+correct:0
+},
+{
+type:"IQ",
+question:"64, 32, 16, 8, ?",
+options:["6","4","2","1"],
+correct:1
+},
+{
+type:"IQ",
+question:"1, 4, 9, 16, 25, ?",
+options:["30","35","36","49"],
+correct:2
+},
+{
+type:"IQ",
+question:"50% dari 80 adalah?",
+options:["20","30","40","50"],
+correct:2
+},
+{
+type:"IQ",
+question:"8 × 7 - 12 = ?",
+options:["44","46","48","50"],
+correct:0
+},
+{
+type:"IQ",
+question:"27, 9, 3, 1, ?",
+options:["0","1/3","2","3"],
+correct:1
+},
+{
+type:"IQ",
+question:"81 ÷ 9 = ?",
+options:["7","8","9","10"],
+correct:2
+},
+{
 type:"IQ",
 question:"2, 6, 12, 20, 30, ?",
-options:["40","41","42","44"]
+options:["40","41","42","44"],
+correct:2
 },
 {
 type:"IQ",
 question:"10 × 10 - 50 = ?",
-options:["50","60","70","80"]
-},
-{
-type:"IQ",
-question:"Jika A = 1, B = 2, C = 3, maka B + C = ?",
-options:["4","5","6","7"]
+options:["50","60","70","80"],
+correct:0
 },
 {
 type:"IQ",
 question:"144 ÷ 12 = ?",
-options:["10","11","12","13"]
+options:["10","11","12","13"],
+correct:2
 },
-{
-type:"IQ",
-question:"Jika 3 orang menyelesaikan pekerjaan dalam 6 hari, 6 orang menyelesaikannya dalam?",
-options:["2 hari","3 hari","4 hari","6 hari"]
-},
-{
-type:"IQ",
-question:"Matahari : Siang = Bulan : ?",
-options:["Malam","Pagi","Sore","Siang"]
-},
+
 {
 type:"IQ",
 question:"5, 11, 17, 23, ?",
-options:["28","29","30","31"]
+options:["28","29","30","31"],
+correct:3
 },
 {
 type:"IQ",
 question:"8 + 8 ÷ 2 = ?",
-options:["8","10","12","16"]
-},
-{
-type:"IQ",
-question:"Jika semua A adalah B, dan beberapa B adalah C, maka?",
-options:["Semua A adalah C","Beberapa A mungkin C","Tidak ada hubungan","Semua C adalah A"]
+options:["8","10","12","16"],
+correct:2
 },
 {
 type:"IQ",
 question:"49 ÷ 7 = ?",
-options:["6","7","8","9"]
-},
-{
-type:"IQ",
-question:"Jika hari ini Jumat, 3 hari lagi adalah?",
-options:["Senin","Selasa","Rabu","Kamis"]
+options:["6","7","8","9"],
+correct:1
 },
 {
 type:"IQ",
 question:"3, 9, 27, 81, ?",
-options:["162","243","324","405"]
-},
-{
-type:"IQ",
-question:"Harga 3 buku Rp30.000, maka 1 buku?",
-options:["Rp8.000","Rp9.000","Rp10.000","Rp12.000"]
+options:["162","243","324","405"],
+correct:1
 },
 {
 type:"IQ",
 question:"√64 = ?",
-options:["6","7","8","9"]
+options:["6","7","8","9"],
+correct:2
 },
 {
 type:"IQ",
-question:"Jika semua kucing adalah hewan, maka kucing adalah?",
-options:["Tanaman","Hewan","Benda","Manusia"]
+question:"12 + 18 = ?",
+options:["28","30","32","34"],
+correct:1
+},
+{
+type:"IQ",
+question:"15 × 3 = ?",
+options:["35","40","45","50"],
+correct:2
+},
+{
+type:"IQ",
+question:"200 ÷ 4 = ?",
+options:["40","50","60","70"],
+correct:1
+},
+{
+type:"IQ",
+question:"11² = ?",
+options:["111","121","131","141"],
+correct:1
+},
+{
+type:"IQ",
+question:"144 + 56 = ?",
+options:["180","190","200","210"],
+correct:2
+},
+
+{
+type:"IQ",
+question:"20% dari 500 adalah?",
+options:["50","75","100","125"],
+correct:2
+},
+{
+type:"IQ",
+question:"7² = ?",
+options:["42","47","49","56"],
+correct:2
+},
+{
+type:"IQ",
+question:"13 + 17 = ?",
+options:["28","29","30","31"],
+correct:2
+},
+{
+type:"IQ",
+question:"90 ÷ 10 = ?",
+options:["7","8","9","10"],
+correct:2
+},
+{
+type:"IQ",
+question:"125 ÷ 5 = ?",
+options:["20","25","30","35"],
+correct:1
+},
+{
+type:"IQ",
+question:"6 × 8 = ?",
+options:["42","48","54","60"],
+correct:1
+},
+{
+type:"IQ",
+question:"14² = ?",
+options:["186","196","206","216"],
+correct:1
+},
+{
+type:"IQ",
+question:"75 + 25 = ?",
+options:["90","95","100","105"],
+correct:2
+},
+{
+type:"IQ",
+question:"1000 ÷ 20 = ?",
+options:["40","45","50","55"],
+correct:2
+},
+{
+type:"IQ",
+question:"17 + 19 = ?",
+options:["34","35","36","37"],
+correct:2
+},
+
+{
+type:"IQ",
+question:"18 × 2 = ?",
+options:["34","35","36","38"],
+correct:2
+},
+{
+type:"IQ",
+question:"225 ÷ 15 = ?",
+options:["10","15","20","25"],
+correct:1
+},
+{
+type:"IQ",
+question:"16² = ?",
+options:["246","256","266","276"],
+correct:1
+},
+{
+type:"IQ",
+question:"250 + 250 = ?",
+options:["450","500","550","600"],
+correct:1
+},
+{
+type:"IQ",
+question:"30% dari 300 adalah?",
+options:["60","70","80","90"],
+correct:3
+},
+{
+type:"IQ",
+question:"9 × 9 = ?",
+options:["72","81","90","99"],
+correct:1
+},
+{
+type:"IQ",
+question:"121 ÷ 11 = ?",
+options:["9","10","11","12"],
+correct:2
+},
+{
+type:"IQ",
+question:"22 + 18 = ?",
+options:["38","39","40","41"],
+correct:2
+},
+{
+type:"IQ",
+question:"19 × 5 = ?",
+options:["85","90","95","100"],
+correct:2
+},
+{
+type:"IQ",
+question:"400 ÷ 8 = ?",
+options:["40","45","50","55"],
+correct:2
 }
-];
+]
+*/
 
-/* NANTI DITAMBAHKAN MENJADI 150 SOAL */
 
-let current=0;
+/* =====================================
+   START TEST
+===================================== */
 
 function startTest(){
 
-document.getElementById("hero").style.display="none";
-document.getElementById("quizPage").style.display="block";
+    document
+    .getElementById("hero")
+    .style.display="none";
 
-loadQuestion();
+    document
+    .getElementById("quizPage")
+    .style.display="block";
+
+    loadQuestion();
 
 }
+
+
+/* =====================================
+   LOAD QUESTION
+===================================== */
 
 function loadQuestion(){
 
-const q=questions[current];
+    if(currentQuestion >= questions.length){
 
-document.getElementById("counter").innerHTML=
-"Soal "+(current+1)+" / 150";
+        showResult();
 
-document.getElementById("type").innerHTML=q.type;
+        return;
+    }
 
-document.getElementById("question").innerHTML=q.question;
+    const q =
+    questions[currentQuestion];
 
-document.getElementById("progress").style.width=
-((current/150)*100)+"%";
+    document
+    .getElementById("counter")
+    .innerHTML=
+    `Soal ${currentQuestion+1}
+     / ${questions.length}`;
 
-const answers=document.getElementById("answers");
-answers.innerHTML="";
+    document
+    .getElementById("type")
+    .innerHTML=q.type;
 
-q.options.forEach((opt,index)=>{
+    document
+    .getElementById("question")
+    .innerHTML=q.question;
 
-const div=document.createElement("div");
+    document
+    .getElementById("progress")
+    .style.width=
+    (
+        currentQuestion/
+        questions.length
+        *100
+    )+"%";
 
-div.className="option";
+    const answersBox =
+    document.getElementById(
+        "answers"
+    );
 
-div.innerHTML=opt;
+    answersBox.innerHTML="";
 
-div.onclick=()=>nextQuestion(index);
+    q.options.forEach(
+        (option,index)=>{
 
-answers.appendChild(div);
+        const div=
+        document.createElement(
+            "div"
+        );
 
-});
+        div.className=
+        "option";
+
+        div.innerHTML=
+        option;
+
+        div.onclick=
+        ()=>selectAnswer(index);
+
+        answersBox.appendChild(
+            div
+        );
+
+    });
 
 }
 
-function nextQuestion(answer){
 
-current++;
+/* =====================================
+   SELECT ANSWER
+===================================== */
 
-if(current>=questions.length){
+function selectAnswer(answerIndex){
 
-showResult();
-return;
+    const q=
+    questions[currentQuestion];
+
+    answers.push(answerIndex);
+
+    calculateScore(
+        q,
+        answerIndex
+    );
+
+    currentQuestion++;
+
+    loadQuestion();
 
 }
 
-loadQuestion();
+
+/* =====================================
+   SCORING ENGINE
+===================================== */
+
+function calculateScore(
+    question,
+    answer
+){
+
+    if(
+        question.type==="MBTI"
+    ){
+
+        mbtiScore+=
+        (3-answer);
+
+    }
+
+    if(
+        question.type==="DISC"
+    ){
+
+        discScore+=
+        (3-answer);
+
+    }
+
+    if(
+        question.type==="IQ"
+    ){
+
+        if(
+            answer===
+            question.correct
+        ){
+
+            iqScore++;
+
+        }
+
+    }
 
 }
+
+
+/* =====================================
+   RESULT ENGINE
+===================================== */
 
 function showResult(){
 
-document.getElementById("quizPage").style.display="none";
-document.getElementById("resultPage").style.display="block";
+    document
+    .getElementById(
+        "quizPage"
+    )
+    .style.display="none";
 
-document.getElementById("mbtiResult").innerHTML="ENTJ";
-document.getElementById("discResult").innerHTML="Dominance";
-document.getElementById("iqResult").innerHTML="118";
+    document
+    .getElementById(
+        "resultPage"
+    )
+    .style.display="block";
+
+    let mbtiType="ENTJ";
+
+    if(mbtiScore<30)
+    mbtiType="INFP";
+
+    else if(mbtiScore<50)
+    mbtiType="INFJ";
+
+    else if(mbtiScore<70)
+    mbtiType="ENFP";
+
+    else if(mbtiScore<90)
+    mbtiType="INTJ";
+
+    else
+    mbtiType="ENTJ";
+
+
+    let discType="Dominance";
+
+    if(discScore<25)
+    discType="Compliance";
+
+    else if(discScore<45)
+    discType="Steadiness";
+
+    else if(discScore<70)
+    discType="Influence";
+
+    else
+    discType="Dominance";
+
+
+    let iqResult=
+    Math.round(
+        80+
+        (iqScore*2)
+    );
+
+    document
+    .getElementById(
+        "mbtiResult"
+    )
+    .innerHTML=
+    mbtiType;
+
+    document
+    .getElementById(
+        "discResult"
+    )
+    .innerHTML=
+    discType;
+
+    document
+    .getElementById(
+        "iqResult"
+    )
+    .innerHTML=
+    iqResult;
 
 }
 
-/* TIMER */
 
-let totalTime=45*60;
+/* =====================================
+   TIMER
+===================================== */
 
+let totalTime=
+45*60;
+
+const timer=
 setInterval(()=>{
 
-let min=Math.floor(totalTime/60);
-let sec=totalTime%60;
+    const min=
+    Math.floor(
+        totalTime/60
+    );
 
-document.getElementById("timer").innerHTML=
-String(min).padStart(2,'0')+
-":"+
-String(sec).padStart(2,'0');
+    const sec=
+    totalTime%60;
 
-if(totalTime>0) totalTime--;
+    document
+    .getElementById(
+        "timer"
+    )
+    .innerHTML=
+    String(min)
+    .padStart(2,'0')
+    +":"+
+    String(sec)
+    .padStart(2,'0');
+
+    if(totalTime>0){
+
+        totalTime--;
+
+    }else{
+
+        clearInterval(
+            timer
+        );
+
+        showResult();
+
+    }
 
 },1000);
+
+
+/* =====================================
+   SHUFFLE
+===================================== */
+
+function shuffleQuestions(){
+
+    questions.sort(
+        ()=>Math.random()-0.5
+    );
+
+}
+
+/*
+jalankan sebelum start
+
+shuffleQuestions();
+*/
 
 </script>
 
